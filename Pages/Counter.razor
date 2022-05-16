@@ -1,4 +1,8 @@
 ﻿@page "/counter"
+@page "/alternateNameforCounter"
+
+<!-- Integer route constraint for starting value added as a suffix-->
+@page "/counter/{startingValue:int}/{IncrementBy:int}"
 
 <PageTitle>Counter</PageTitle>
 
@@ -11,11 +15,21 @@
 @code {
     private int currentCount = 0;
 
+    
     [Parameter]
-    public int IncrementBy { get; set; } = 2;
+    public int StartingValue { get; set; } = 0;
+
+    [Parameter]
+    public int IncrementBy { get; set; } = 5;
 
     private void IncrementCount()
     {
         currentCount += IncrementBy;
+    }
+
+    protected override void OnParametersSet()
+    {
+        currentCount = StartingValue;
+        base.OnParametersSet();
     }
 }

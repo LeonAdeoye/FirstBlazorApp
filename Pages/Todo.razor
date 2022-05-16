@@ -1,0 +1,31 @@
+﻿@page "/todo"
+
+<h3>Todo</h3>
+
+<!-- Change event binding to oninput instead of onchangeds so that the text changes as you type in-->
+<input @bind="NewToDo" @bind:event="oninput" placeholder="What do you want to do?" />
+<input @bind="NewDueDate" @bind:format="yyyy-MM-dd" placeholder="By when do you want to do it?" />
+<button @onclick="Save">Save</button>
+
+@if(!string.IsNullOrEmpty(NewToDo))
+{
+	<p>@NewToDo, Due: @NewDueDate?.ToShortDateString()</p>
+}
+
+@code {
+	private List<ToDoItem> ToDoItems = new();
+
+	private string NewToDo = string.Empty;
+
+	private DateTime? NewDueDate = null;
+
+	private void Save()
+	{
+		if (string.IsNullOrEmpty(NewToDo)) return;
+
+		ToDoItems.Add(new ToDoItem { Todo = NewToDo, DueDate = NewDueDate });
+
+		NewToDo = string.Empty;
+		NewDueDate = null;
+	}
+}
