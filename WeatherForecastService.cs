@@ -7,8 +7,7 @@ namespace FirstBlazorApp
         private readonly HttpClient client = new();
         public async Task<WeatherForecast[]?> GetWeatherForecast()
         {
-            // TODO fix issue with JSON file load.
-            WeatherForecast[]? result = await client.GetFromJsonAsync<WeatherForecast[]?>("weather.json");
+            WeatherForecast[]? result = await client.GetFromJsonAsync<WeatherForecast[]?>("https://localhost:44318/sample-data/weather.json");
             return result;
         }
     }
